@@ -1,0 +1,106 @@
+# Asset Pulse — CLAUDE.md
+
+## Project Overview
+
+**Asset Pulse** is an asset intelligence application that delivers real-time market data, price history, and contextual insights for three core assets:
+
+- Bitcoin (BTC)
+- Gold (XAU)
+- Silver (XAG)
+
+The application is built for users who want a unified, clean view of these assets without switching between multiple platforms. It surfaces prices, trends, alerts, and market context in a single dashboard.
+
+HTML mockups for the UI have been prepared separately and live in `docs/mockups/`. They are the source of truth for visual design during implementation.
+
+---
+
+## Goals
+
+- Provide real-time and historical price data for Bitcoin, Gold, and Silver
+- Display market intelligence: trends, volatility indicators, relative performance
+- Support price alerts and notifications
+- Deliver a fast, responsive experience on all screen sizes
+- Store user preferences and alert configurations persistently
+- Be maintainable and testable from day one
+
+---
+
+## Technology Stack
+
+### Application
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| UI Library | React 19 |
+| Language | TypeScript (strict mode) |
+| Styling | Tailwind CSS |
+| Database | Neon PostgreSQL (serverless) |
+| ORM | Drizzle ORM |
+
+### Testing
+
+| Scope | Tool |
+|---|---|
+| Unit tests | Vitest |
+| Component tests | React Testing Library |
+| End-to-end tests | Playwright |
+
+---
+
+## SDD Workflow
+
+This project follows **Spec-Driven Development (SDD)**. No implementation begins until the specification chain is complete.
+
+```
+/brainstorm  →  Explore the problem space; generate candidate approaches
+     ↓
+/define      →  Write the formal specification with acceptance criteria
+     ↓
+/design      →  Produce the technical design: components, data flow, API contracts
+     ↓
+/tasks       →  Decompose the design into atomic, executable tasks
+     ↓
+/build       →  Implement tasks with tests; gate on all tests passing
+```
+
+Each stage produces a document saved to `docs/specs/`. No stage may be skipped. Each stage requires explicit user approval before the next begins.
+
+Command templates for each stage live in `.claude/commands/`.
+
+---
+
+## Coding Principles
+
+- **No premature abstraction.** Three similar lines is better than a helper that doesn't earn its keep. Abstract only when the third use case appears.
+- **No speculative features.** Build exactly what the approved spec describes. Do not add "while we're at it" features.
+- **No comments explaining WHAT.** Well-named identifiers do that. Only add a comment when the WHY is non-obvious: a hidden constraint, a subtle invariant, a bug workaround.
+- **Type safety at boundaries.** Validate and type all external data (API responses, user input, database reads) at the point of entry. Trust internal typed code.
+- **No security vulnerabilities.** No SQL injection, XSS, command injection, or OWASP Top 10 issues. Use parameterized queries via Drizzle. Sanitize all user input before rendering.
+- **Prefer editing existing files** over creating new ones. Do not create files speculatively.
+- **Match scope to what was asked.** A bug fix is not an invitation to refactor surrounding code.
+
+---
+
+## Testing Principles
+
+- **Unit tests (Vitest):** Cover pure functions, data transformations, and utility logic.
+- **Component tests (React Testing Library):** Test components from the user's perspective — what they see and interact with, not implementation details.
+- **End-to-end tests (Playwright):** Cover critical user journeys: viewing asset prices, setting alerts, navigating between views.
+- **No mocking internals.** Do not mock modules within the same codebase. Mock only external boundaries (network, database) using established patterns.
+- **Tests gate /build.** A /build task is not complete until its tests pass. Never mark a task done with a failing test suite.
+- **Tests live next to the code they test.** Unit and component tests in `__tests__/` adjacent to source. Playwright tests in `e2e/`.
+
+---
+
+## What NOT to Do
+
+- **Do not skip SDD stages.** No /design before /define is approved. No /build before /tasks is approved.
+- **Do not make architectural decisions before /define.** Technology choices beyond the stack are spec-driven.
+- **Do not begin implementation before /design is approved.** Mockups and specs drive implementation, not intuition.
+- **Do not add features not in the approved spec.** Open a new /brainstorm for anything out of scope.
+- **Do not force-push to main.** Ever.
+- **Do not skip pre-commit hooks** (`--no-verify`). Fix the underlying issue instead.
+- **Do not commit secrets, API keys, or credentials.** Use environment variables. Use `.env.local` locally; never commit it.
+- **Do not write `any` in TypeScript** except as a last resort with a comment explaining why.
+- **Do not leave `console.log` in production code.** Use a structured logger.
