@@ -33,7 +33,7 @@
     "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
-    "jsdom": "^29.1.1",
+    "jsdom": "^20.0.3",
     "playwright": "^1.60.0",
     "tailwindcss": "^4",
     "typescript": "^5",
