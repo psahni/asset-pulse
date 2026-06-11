@@ -48,6 +48,76 @@ HTML mockups for the UI have been prepared separately and live in `docs/mockups/
 
 ---
 
+## Next.js Conventions
+
+- **Always use App Router.** Never Pages Router.
+- **Always use Server Components by default.** Only add `'use client'` when interactivity is required (event handlers, browser APIs, hooks).
+- **Never use `useEffect` for data fetching.** Use async Server Components instead.
+- **All server actions go in `app/actions/` folder.**
+- **Use `next/image` for all images.** Never a raw `<img>` tag.
+- **Use `next/link` for all internal navigation.** Never a raw `<a>` tag.
+- **Always use dynamic imports for heavy client components** (e.g. charts, rich text editors).
+- **Never fetch data in `layout.tsx`.** Fetch in `page.tsx` or dedicated Server Components only.
+
+---
+
+## React Conventions
+- Always use functional components. Never class components.
+- Keep components under 150 lines. Split if larger.
+- One component per file. Filename matches component name.
+- Props must always be typed with TypeScript interface.
+- Never use index as key in .map() loops.
+- Avoid useEffect unless absolutely necessary.
+  If you use it, always clean up subscriptions.
+- Lift state only as high as needed — no higher.
+- Use custom hooks to extract complex logic from components.
+  Custom hooks go in src/hooks/ folder.
+
+---
+
+## TypeScript Conventions
+- Strict mode is ON. Never use any type.
+- Never use type assertions (as Type) unless unavoidable.
+- Always define return types on functions explicitly.
+- Use interface for object shapes. Use type for unions/aliases.
+- Never use non-null assertion (!) unless you can prove it.
+- All API responses must have typed interfaces.
+  Never return untyped JSON.
+
+---
+
+## Design Patterns
+- Container/Presenter pattern for complex components.
+  Container handles logic. Presenter handles rendering.
+- All API calls go through src/lib/api.ts only.
+  Never call fetch() directly inside components.
+- All constants go in src/lib/constants.ts.
+- All utility functions go in src/lib/utils.ts.
+- Barrel exports (index.ts) for each major folder.
+
+---
+
+## Linting and Formatting
+- ESLint must pass with zero warnings before every commit.
+- Prettier formatting must be applied before every commit.
+- Run: npm run lint && npm run typecheck before committing.
+- Never suppress ESLint rules with eslint-disable comments
+  unless you explain why in a comment above it.
+
+---
+
+## Testing
+- Every component must have a co-located test file.
+  PostCard.tsx → PostCard.test.tsx
+- Tests go in __tests__/ folder or alongside the component.
+- Unit test every utility function in src/lib/.
+- Never test implementation details.
+- Test behaviour not code structure.
+- Every API route must have at least one integration test.
+- Minimum coverage target: 70% per file.
+
+---
+
 ## SDD Workflow
 
 This project follows **Spec-Driven Development (SDD)**. No implementation begins until the specification chain is complete.
