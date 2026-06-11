@@ -63,6 +63,17 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | `npm run db:push` | Push Drizzle schema to Neon database |
 | `npm run db:studio` | Open Drizzle Studio (visual DB browser) |
 
+## External APIs
+
+| API | Used for | Key required |
+|---|---|---|
+| [CoinGecko](https://www.coingecko.com/en/api) | BTC price (USD + INR), 1yr seed history | **No** — fully public |
+| [gold-api.com](https://gold-api.com) | Gold (XAU) and Silver (XAG) live spot prices | **No** — fully public |
+| [metalpriceapi.com](https://metalpriceapi.com) | Gold + Silver 1yr historical seed (one-time only) | Yes — free signup, no credit card |
+| [Frankfurter](https://www.frankfurter.app) | USD → INR exchange rate | **No** — fully public |
+
+> CoinGecko and gold-api.com require no API key. Only metalpriceapi.com needs a free signup key, and it is only called once during the initial database seed.
+
 ## Data Pipeline
 
 Prices are kept fresh by a scheduled background poller:
