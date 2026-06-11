@@ -104,3 +104,9 @@ Command templates for each stage live in `.claude/commands/`.
 - **Do not commit secrets, API keys, or credentials.** Use environment variables. Use `.env.local` locally; never commit it.
 - **Do not write `any` in TypeScript** except as a last resort with a comment explaining why.
 - **Do not leave `console.log` in production code.** Use a structured logger.
+
+---
+
+## Communication During /build
+
+- **Always summarize each completed task.** After marking a task done, output a summary table showing: what was built, files created/modified, done-criteria checks (✓/✗), and any notable decisions or deviations. Then ask if the user wants to continue to the next task.
