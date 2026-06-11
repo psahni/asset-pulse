@@ -50,6 +50,43 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+## Git Workflow
+
+### Start a new feature branch
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feat/your-feature-name
+```
+
+### Push branch and open a PR
+
+```bash
+git add <files>
+git commit -m "feat: your message"
+git push -u origin feat/your-feature-name
+
+# Create PR via GitHub CLI
+gh pr create --base main --title "feat: your title" --body "Your description"
+```
+
+### Sync with main after a PR is merged
+
+```bash
+git checkout main
+git pull origin main
+```
+
+### Delete a feature branch after merge (optional)
+
+```bash
+git branch -d feat/your-feature-name                    # local
+git push origin --delete feat/your-feature-name         # remote
+```
+
+---
+
 ## Available Commands
 
 | Command | Description |
