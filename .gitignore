@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# environment variables — never commit
+.env.local
+.env*.local
+
+# TypeScript build info
+tsconfig.tsbuildinfo
+
+# Vercel
+.vercel
+
+# OS
+.DS_Store
+Thumbs.db
