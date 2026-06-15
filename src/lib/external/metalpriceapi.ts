@@ -109,3 +109,23 @@ export async function fetchMetalsHistory365d(apiKey: string): Promise<MetalsHist
     xag: extractPrices(xagRates, 'USDXAG'),
   }
 }
+
+export async function fetchMetalsHistory30d(apiKey: string): Promise<MetalsHistory> {
+  const now = new Date()
+  const fiveDaysAgo = new Date(now)
+  fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5)
+
+  const fmt = (d: Date): string => d.toISOString().slice(0, 10)
+  const start = fmt(fiveDaysAgo)
+  const end = fmt(now)
+
+  const [xauRates, xagRates] = await Promise.all([
+    fetchTimeframe('XAU', start, end, apiKey),
+    fetchTimeframe('XAG', start, end, apiKey),
+  ])
+
+  return {
+    xau: extractPrices(xauRates, 'USDXAU'),
+    xag: extractPrices(xagRates, 'USDXAG'),
+  }
+}
